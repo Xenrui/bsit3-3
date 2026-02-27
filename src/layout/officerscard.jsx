@@ -1,0 +1,64 @@
+const Officerscard = ({ studImg, name, role, subRole, quotes }) => {
+	return (
+		// <div className="group lg:w-75 w-full bg-[#72BF91]/50 lg:py-7 lg:px-10 p-3 rounded-2xl text-center flex items-center flex-col">
+		// 	{/* IMAGE */}
+		// 	<div
+		// 		className="lg:w-56 w-full lg:h-56 h-37 bg-[#FFF8DE]/70 rounded-xl relative mb-2"
+		// 		style={{
+		// 			boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+		// 		}}>
+		// 		<img
+		// 			src={`/assets/students/${studImg || "pogi.png"}`}
+		// 			alt=""
+		// 			className="absolute bottom-0 rounded-xl transition-all duration-300 ease-in-out group-hover:scale-103 group-hover:-translate-y-1"
+		// 			style={{
+		// 				filter: "drop-shadow(rgba(0, 0, 0, 0.16) 0px 3px 6px) drop-shadow(rgba(0, 0, 0, 0.23) 0px 3px 6px)",
+		// 			}}
+		// 		/>
+		// 	</div>
+
+		// 	{/* TITLE CARD */}
+		// 	<h3 className="text-[#FFF8DE] font-semibold mb-1">
+		// 		{name || "Name..."}
+		// 	</h3>
+		// 	{/* ROLE */}
+		// 	<p className="text-[#9E8576] text-xs font-semibold">{role}</p>
+		// 	<p className="text-[#9E8576] text-[8px] font-light italic">
+		// 		{subRole}
+		// 	</p>
+		// 	<p className="text-[#F9F6EB] lg:text-sm text-xs italic text-wrap mt-2">
+		// 		“ {quotes || "Quotes here..."} “
+		// 	</p>
+		// </div>
+
+			<div className="group relative lg:w-75 w-full h-full bg-[#72BF91]/50 rounded-2xl text-center flex items-center flex-col">
+				{/* IMAGE */}
+				<img
+					src={`/assets/students/${studImg || "pogi.png"}`}
+					alt=""
+					className="w-full lg:h-91 h-53 relative lg:bottom-8 bottom-4 rounded-xl transition-all duration-300 ease-in-out group-hover:scale-103 group-hover:-translate-y-1"
+					style={{
+						filter: "drop-shadow(rgba(0, 0, 0, 0.16) 0px 3px 6px) drop-shadow(rgba(0, 0, 0, 0.23) 0px 3px 6px)",
+					}}
+				/>
+
+				{/* TITLE CARD */}
+				<div className="absolute w-full bottom-0 bg-[#FFF8DE] p-1 rounded-2xl transition-all duration-300 ease-in-out group-hover:scale-103">
+					<h3 className="text-[#8A6E5D] text-xs font-semibold mb-1">
+						{name || "Name..."}
+					</h3>
+					<p className="text-[#7FBF83] text-[8px] font-semibold">
+						{role}
+					</p>
+					<p className="text-[#9E8576] text-[7px] font-light italic">
+						{subRole}
+					</p>
+					<p className="text-[#B5A996] lg:text-[11px] text-[7px] italic text-wrap mt-2">
+						" {quotes || "Quotes here..."} "
+					</p>
+				</div>
+			</div>
+	);
+};
+
+export default Officerscard;
