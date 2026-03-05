@@ -51,10 +51,6 @@ const Home = () => {
 
   return (
     <div className="w-full min-h-screen overflow-x-hidden bg-[#FFF8DE]/44">
-      <style>{`
-
-            `}</style>
-
       <Navbar />
 
       <main
