@@ -137,19 +137,19 @@ const Contact = () => {
                 />
               </div>
 
-            {alert && (
-              <div
-                className={`
+              {alert && (
+                <div
+                  className={`
                 mt-5 px-6 py-4 rounded-2xl font-semibold text-center 
                 border ${alert.type === "success" ? "border-green-500 bg-green-50 text-green-700" : "border-red-500 bg-red-50 text-red-700"} 
                 shadow-md
                 transition-all duration-300 ease-in-out
                 animate-slide-in
                 `}
-              >
-                {alert.message}
-              </div>
-            )}
+                >
+                  {alert.message}
+                </div>
+              )}
 
               <button
                 type="submit"
