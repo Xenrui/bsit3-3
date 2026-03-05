@@ -22,10 +22,13 @@ export async function POST(req) {
       },
     });
 
+    // Get all recipients from env and split into array
+    const recipients = process.env.EMAIL_RECIPIENTS.split(",").map(e => e.trim());
+
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: `BSIT 3-3 Website: ${subject} (from ${name})`,
+      to: recipients, // everyone gets it
+      subject: `Message from BSIT 3-3 Website: ${subject} (from ${name})`,
       text: `From: ${name} <${email}>\n\nMessage:\n${message}`,
     });
 
