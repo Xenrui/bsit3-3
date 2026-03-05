@@ -52,35 +52,7 @@ const Home = () => {
   return (
     <div className="w-full min-h-screen overflow-x-hidden bg-[#FFF8DE]/44">
       <style>{`
-                @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-15px); }
-                    100% { transform: translateY(0px); }
-                }
-                .animate-float {
-                    animation: float 4s ease-in-out infinite;
-                }
 
-                @keyframes blow {
-                    0% { 
-                        transform: translate(0, 0) rotate(0deg); 
-                        opacity: 0; 
-                    }
-                    10% { opacity: 0.8; }
-                    80% { opacity: 0.8; }
-                    100% { 
-                        transform: translate(40vw, -120vh) rotate(720deg); 
-                        opacity: 0; 
-                    }
-                }
-                .particle-leaf {
-                    position: absolute;
-                    background: #A7C796;
-                    border-radius: 50% 0 50% 0;
-                    opacity: 0;
-                    pointer-events: none;
-                    z-index: 10;
-                }
             `}</style>
 
       <Navbar />
