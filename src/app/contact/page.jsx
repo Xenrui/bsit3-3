@@ -1,82 +1,147 @@
 "use client";
 
+import { useState } from "react";
 import Footer from "@/component/footer";
 import Navbar from "@/component/navbar";
 import { Facebook, Mail, ShieldCheck } from "lucide-react";
 
 const Contact = () => {
-    return (
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
-        <div className="w-full min-h-screen overflow-x-hidden bg-[#FFF8DE]/44">
-            <Navbar />
+  const [alert, setAlert] = useState(null); // { type: 'success' | 'error', message: string }
+  const [loading, setLoading] = useState(false);
 
-            <main className="text-center py-16 px-5">
-                <h1 className="text-[#8A6E5D] text-7xl font-bold mb-6">
-                    Contact Us!
-                </h1>
-                <p className="text-[#7FBF83] text-xl font-light italic leading-relaxed max-w-4xl mx-auto">
-                    Whether you’re an irregular student, have a question
-                    about projects, or just want to collaborate, we’re here to help. 
-                    Drop us a message and we’ll make sure you’re connected!
-                </p>
-            </main>
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-            <section className="w-full py-20 px-5 relative bg-[url('/assets/42624.png')] bg-cover bg-center bg-[#FFF8DE]/80 bg-blend-overlay">
-                
-                <div className="w-full max-w-7xl mx-auto flex justify-center lg:items-start items-center lg:flex-row flex-col gap-12 relative z-10">
-                    
-                    {/* CONTACT FORM */}
-                    <div className="lg:w-1/2 w-full bg-white/40 backdrop-blur-md rounded-3xl lg:px-12 px-8 pt-10 pb-12 border border-white/20 shadow-xl">
-                        <h1 className="text-[#8A6E5D] text-4xl font-extrabold mb-10">
-                            Send us a Message
-                        </h1>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-                        <form className="flex flex-col gap-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="flex flex-col gap-2 w-full">
-                                    <label className="text-[#8A6E5D] text-base font-semibold">Name</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Your name"
-                                        className="w-full border border-[#8A6E5D]/30 rounded-lg text-[#9E8576] text-base p-3 placeholder:text-[#B5A996] focus:outline-none focus:ring-2 focus:ring-[#8A6E5D]/40 bg-white/50"
-                                    />
-                                </div>
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-                                <div className="flex flex-col gap-2 w-full">
-                                    <label className="text-[#8A6E5D] text-base font-semibold">Email</label>
-                                    <input
-                                        type="email"
-                                        placeholder="Your email"
-                                        className="w-full border border-[#8A6E5D]/30 rounded-lg text-[#9E8576] text-base p-3 placeholder:text-[#B5A996] focus:outline-none focus:ring-2 focus:ring-[#8A6E5D]/40 bg-white/50"
-                                    />
-                                </div>
-                            </div>
+      const data = await res.json();
 
-                            <div className="flex flex-col gap-2">
-                                <label className="text-[#8A6E5D] text-base font-semibold">Subject</label>
-                                <input
-                                    type="text"
-                                    placeholder="What’s this about?"
-                                    className="w-full border border-[#8A6E5D]/30 rounded-lg text-[#9E8576] text-base p-3 placeholder:text-[#B5A996] focus:outline-none focus:ring-2 focus:ring-[#8A6E5D]/40 bg-white/50"
-                                />
-                            </div>
+      if (res.ok) {
+        setAlert({ type: "success", message: "Message sent successfully!" });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setAlert({ type: "error", message: data.error || "Failed to send message." });
+      }
+    } catch (err) {
+      setAlert({ type: "error", message: "Failed to send message. Please try again later." });
+      console.error(err);
+    } finally {
+      setLoading(false);
+      setTimeout(() => setAlert(null), 5000); // auto-hide alert
+    }
+  };
 
-                            <div className="flex flex-col gap-2">
-                                <label className="text-[#8A6E5D] text-base font-semibold">Message</label>
-                                <textarea
-                                    placeholder="Your message..."
-                                    className="w-full h-40 border border-[#8A6E5D]/30 rounded-lg text-[#9E8576] text-base p-3 placeholder:text-[#B5A996] focus:outline-none resize-none bg-white/50 focus:ring-2 focus:ring-[#8A6E5D]/40"
-                                />
-                            </div>
+  return (
+    <div className="w-full min-h-screen overflow-x-hidden bg-[#FFF8DE]/44">
+      <Navbar />
 
-                            <button
-                                type="submit"
-                                className="w-full bg-[#8A6E5D] hover:bg-[#7D5D4A] transition-all duration-300 ease-in-out rounded-lg py-3 text-white text-lg font-bold mt-4 shadow-md"
-                            >
-                                Send Message
-                            </button>
-                        </form>
-                    </div>
+      <main className="text-center py-16 px-5">
+        <h1 className="text-[#8A6E5D] text-7xl font-bold mb-6">Contact Us!</h1>
+        <p className="text-[#7FBF83] text-xl font-light italic leading-relaxed max-w-4xl mx-auto">
+          Whether you’re an irregular student, have a question about projects, or just want to collaborate, we’re here to help. 
+          Drop us a message and we’ll make sure you’re connected!
+        </p>
+      </main>
+
+      <section className="w-full py-20 px-5 relative bg-[url('/assets/42624.png')] bg-cover bg-center bg-[#FFF8DE]/80 bg-blend-overlay">
+        <div className="w-full max-w-7xl mx-auto flex justify-center lg:items-start items-center lg:flex-row flex-col gap-12 relative z-10">
+          
+          {/* CONTACT FORM */}
+          <div className="lg:w-1/2 w-full bg-white/40 backdrop-blur-md rounded-3xl lg:px-12 px-8 pt-10 pb-12 border border-white/20 shadow-xl">
+            <h1 className="text-[#8A6E5D] text-4xl font-extrabold mb-10">Send us a Message</h1>
+
+            {alert && (
+              <div
+                className={`mb-6 p-4 rounded-lg text-white font-semibold ${
+                  alert.type === "success" ? "bg-green-500" : "bg-red-500"
+                }`}
+              >
+                {alert.message}
+              </div>
+            )}
+
+            <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2 w-full">
+                  <label className="text-[#8A6E5D] text-base font-semibold">Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    className="w-full border border-[#8A6E5D]/30 rounded-lg text-[#9E8576] text-base p-3 placeholder:text-[#B5A996] focus:outline-none focus:ring-2 focus:ring-[#8A6E5D]/40 bg-white/50"
+                    required
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2 w-full">
+                  <label className="text-[#8A6E5D] text-base font-semibold">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Your email"
+                    className="w-full border border-[#8A6E5D]/30 rounded-lg text-[#9E8576] text-base p-3 placeholder:text-[#B5A996] focus:outline-none focus:ring-2 focus:ring-[#8A6E5D]/40 bg-white/50"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-[#8A6E5D] text-base font-semibold">Subject</label>
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder="What’s this about?"
+                  className="w-full border border-[#8A6E5D]/30 rounded-lg text-[#9E8576] text-base p-3 placeholder:text-[#B5A996] focus:outline-none focus:ring-2 focus:ring-[#8A6E5D]/40 bg-white/50"
+                  required
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-[#8A6E5D] text-base font-semibold">Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Your message..."
+                  className="w-full h-40 border border-[#8A6E5D]/30 rounded-lg text-[#9E8576] text-base p-3 placeholder:text-[#B5A996] focus:outline-none resize-none bg-white/50 focus:ring-2 focus:ring-[#8A6E5D]/40"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className={`w-full bg-[#8A6E5D] hover:bg-[#7D5D4A] transition-all duration-300 ease-in-out rounded-lg py-3 text-white text-lg font-bold mt-4 shadow-md ${
+                  loading ? "opacity-60 cursor-not-allowed" : ""
+                }`}
+                disabled={loading}
+              >
+                {loading ? "Sending..." : "Send Message"}
+              </button>
+            </form>
+          </div>
 
                     {/* CONTACT INFORMATION */}
                     <div className="flex flex-col gap-10 lg:w-1/3 w-full">
@@ -119,13 +184,12 @@ const Contact = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-
-            {/* FOOTER */}
-            <Footer />
         </div>
-    );
+      </section>
+
+      <Footer />
+    </div>
+  );
 };
 
 export default Contact;
