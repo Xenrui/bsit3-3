@@ -129,13 +129,7 @@ const Home = () => {
 
           <button
             onClick={scrollToExplore}
-            className="text-[#A7C796] font-bold lg:text-2xl 
-            bg-white/20 backdrop-blur-md border border-white/30 
-            rounded-full py-4 px-8 my-10 
-            transition-all duration-500 ease-in-out 
-            hover:bg-[#8A6E5D]/80 hover:text-white 
-            hover:scale-105 shadow-xl active:scale-95"
-          >
+            className="text-[#A7C796] font-bold lg:text-2xl bg-white/20 backdrop-blur-md border border-white/30 rounded-full py-4 px-8 my-10 transition-all duration-500 ease-in-out hover:bg-[#8A6E5D]/80 hover:text-white hover:scale-105 shadow-xl active:scale-95">
             Explore Our World
           </button>
         </div>
@@ -175,7 +169,7 @@ const Home = () => {
 
         <button
           onClick={() => router.push("/contact")}
-          className="text-[#FFF8DE] lg:text-2xl font-bold bg-white/10 backdrop-blur-lg border border-white/20 rounded-full py-4 px-14 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#8A6E5D]/80 shadow-2xl active:scale-95"
+          className="text-[#FFF8DE] lg:text-2xl font-bold bg-[#7FBF83]/440 backdrop-blur-lg border border-white/20 rounded-full py-4 px-14 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#8A6E5D]/80 shadow-2xl active:scale-95"
         >
           Reach Out
         </button>

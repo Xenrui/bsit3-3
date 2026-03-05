@@ -21,7 +21,7 @@ const Contact = () => {
                 </p>
             </main>
 
-            <section className="w-full py-20 px-5 relative bg-[url('/assets/42624.png')] bg-cover bg-center bg-[#FFF8DE]/60 bg-blend-overlay">
+            <section className="w-full py-20 px-5 relative bg-[url('/assets/42624.png')] bg-cover bg-center bg-[#FFF8DE]/80 bg-blend-overlay">
                 
                 <div className="w-full max-w-7xl mx-auto flex justify-center lg:items-start items-center lg:flex-row flex-col gap-12 relative z-10">
                     
