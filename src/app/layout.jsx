@@ -1,15 +1,19 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import AudioPlayer from "@/component/AudioPlayer";
+
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
 });
 
+
 const geistMono = Geist_Mono({
     variable: "--font-geist-mono",
     subsets: ["latin"],
 });
+
 
 export const metadata = {
     title: "STUDIO T3CH",
@@ -18,6 +22,7 @@ export const metadata = {
         icon: '/assets/studiot3ch_logo.png'
     }
 };
+
 
 export default function RootLayout({ children }) {
     return (
@@ -31,11 +36,13 @@ export default function RootLayout({ children }) {
                         cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='%23A7C796' stroke='%238A6E5D' stroke-width='1'><path d='M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1.3 8.2-1.2 6.7-3.6 9-8.3 9.8Z'/><path d='M19 2s-5 7-3 14'/></svg>") 16 16, auto;
                     }
 
-                    .custom-leaf-cursor button, 
-                    .custom-leaf-cursor a, 
+
+                    .custom-leaf-cursor button,
+                    .custom-leaf-cursor a,
                     .custom-leaf-cursor .cursor-pointer {
                         cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='%237FBF83' stroke='%238A6E5D' stroke-width='1.5'><path d='M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1.3 8.2-1.2 6.7-3.6 9-8.3 9.8Z'/><path d='M19 2s-5 7-3 14'/></svg>") 16 16, pointer !important;
                     }
+
 
                     /* Global Glassmorphism Button Style */
                     .glass-button {
@@ -46,13 +53,17 @@ export default function RootLayout({ children }) {
                         transition: all 0.3s ease;
                     }
 
+
                     .glass-button:hover {
                         background: rgba(138, 110, 93, 0.5); /* Your brown (#8A6E5D) on hover */
                         transform: translateY(-2px);
                         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
                     }
                 `}} />
-                
+               
+                {/* Music Player: for bg sounds hehe */}
+                <AudioPlayer />
+               
                 {children}
             </body>
         </html>
