@@ -3,88 +3,100 @@
 import Navbar from "@/component/navbar";
 import Footer from "@/component/footer";
 import Announcement from "@/layout/announcement"; 
-import { Clock, User, BookOpen } from "lucide-react";
+import { Clock, User, BookOpen, Calendar, ChevronRight } from "lucide-react";
 
-const scheduleData = [
-    { code: "COMP 019", desc: "Applications Development and Emerging Technologies", schedule: "T/T 03:00PM-09:00PM", faculty: "ESPARRAGO, YUZEF EZECKIEL" },
-    { code: "COMP 035", desc: "Data Mining", schedule: "M/TH 04:30PM-07:30PM", faculty: "TBA" },
-    { code: "GEED 003", desc: "The Contemporary World/Ang Kasalukuyang Daigdig", schedule: "T 10:30AM-01:30PM", faculty: "DALUPANG, JOHN PAOLO" },
-    { code: "GEED 008", desc: "Ethics/Etika", schedule: "M 01:30PM-04:30PM", faculty: "BOLAÑOS, KRISTOFFER" },
-    { code: "HRMA 001", desc: "Principles of Organization and Management", schedule: "F 10:30AM-01:30PM", faculty: "BRAGAS, LEOPOLDO FRANCISCO" },
-    { code: "INTE 302", desc: "Information Assurance and Security 1", schedule: "M/TH 10:30AM-01:30PM", faculty: "MANDIGMA, JONNIFER" },
-    { code: "INTE 303", desc: "Capstone Project 1", schedule: "F/F 04:00PM-09:00PM", faculty: "ESCUETA, NINO DANIELLE" },
-];
+import { calendarData } from "@/const"; 
 
 export default function Announce() {
     return (
         <div className="min-h-screen w-full bg-[#FFF8DE]/44 flex flex-col overflow-x-hidden">
             <Navbar />
 
-            <div className="w-full px-5 pt-10 pb-5">
-                <div className="max-w-[1400px] mx-auto bg-[url('/assets/42637.jpg')] bg-cover bg-center rounded-[40px] overflow-hidden shadow-lg relative h-[300px]">
+            <div className="w-full px-4 md:px-5 pt-10 pb-5">
+                <div className="max-w-[1400px] mx-auto bg-[url('/assets/42637.jpg')] bg-cover bg-center rounded-[30px] md:rounded-[40px] overflow-hidden shadow-lg relative h-[250px] md:h-[300px]">
                     <div className="absolute inset-0 bg-white/10 backdrop-blur-sm flex flex-col items-center justify-center text-center px-5">
-                        <h1 className="text-5xl md:text-7xl font-serif font-extrabold text-[#FFF8DE] drop-shadow-sm">
+                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif font-extrabold text-[#FFF8DE] drop-shadow-sm">
                             Announcements
                         </h1>
-                        <p className="text-white text-lg font-medium italic mt-2 drop-shadow-md">
+                        <p className="text-white text-base md:text-lg font-medium italic mt-2 drop-shadow-md">
                             Official class schedule and latest news updates.
                         </p>
                     </div>
                 </div>
             </div>
 
-            {/* SCHEDULE BOARD SECTION */}
-            <section className="max-w-[1400px] mx-auto w-full px-5 py-10">
-                <div className="flex items-center gap-3 mb-8">
-                    <div className="bg-[#B5A996] p-2 rounded-lg text-white">
-                        <Clock size={24} />
+            {/* WEEKLY CALENDAR SECTION */}
+            <section className="max-w-[1400px] mx-auto w-full px-4 md:px-5 py-10">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    <div className="flex items-center gap-3">
+                        <div className="bg-[#B5A996] p-2 rounded-lg text-white shadow-sm shrink-0">
+                            <Calendar size={24} />
+                        </div>
+                        <h2 className="text-2xl md:text-3xl font-serif font-bold text-[#8A6E5D]">Weekly Schedule</h2>
                     </div>
-                    <h2 className="text-3xl font-serif font-bold text-[#8A6E5D]">Class Schedule Board</h2>
+
+                    <div className="flex items-center text-sm font-semibold text-[#B5A996] lg:hidden animate-pulse">
+                        Swipe to see more days <ChevronRight size={16} />
+                    </div>
                 </div>
 
-                <div className="bg-white/30 backdrop-blur-md border border-white/50 rounded-[30px] overflow-hidden shadow-xl">
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="bg-[#B5A996]/20 text-[#8A6E5D] uppercase text-xs tracking-widest">
-                                    <th className="p-5 font-bold">Subject</th>
-                                    <th className="p-5 font-bold">Description</th>
-                                    <th className="p-5 font-bold">Schedule</th>
-                                    <th className="p-5 font-bold">Faculty</th>
-                                </tr>
-                            </thead>
-                            <tbody className="text-[#9E8576] font-medium text-sm">
-                                {scheduleData.map((item, index) => (
-                                    <tr key={index} className="border-t border-white/40 hover:bg-white/20 transition-colors">
-                                        <td className="p-5 font-bold text-[#7FBF83]">{item.code}</td>
-                                        <td className="p-5">{item.desc}</td>
-                                        <td className="p-5 flex items-center gap-2 whitespace-nowrap">
-                                            <Clock size={14} className="text-[#B5A996]" />
-                                            {item.schedule}
-                                        </td>
-                                        <td className="p-5 italic text-[11px]">
-                                            <div className="flex items-center gap-2">
-                                                <User size={12} className="text-[#B5A996]" />
-                                                {item.faculty}
+                {/* for mobile: horizontal swipe layout */}
+
+                <div className="flex lg:grid lg:grid-cols-5 gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-1 lg:overflow-visible lg:pb-0 lg:px-0">
+                    {Object.entries(calendarData).map(([day, classes]) => (
+                        <div key={day} className="flex flex-col min-w-[85vw] sm:min-w-[320px] lg:min-w-0 snap-center shrink-0">
+                         
+                            <div className="bg-[#8A6E5D] text-[#FFF8DE] text-center py-3 rounded-t-xl font-bold tracking-widest uppercase text-base shadow-md z-10">
+                                {day}
+                            </div>
+                            
+                            <div className="flex flex-col gap-3 bg-white/60 backdrop-blur-md border border-white/80 rounded-b-xl p-3 md:p-4 flex-1 shadow-lg">
+                                {classes.length === 0 ? (
+                                    <div className="text-center text-base text-[#9E8576] font-semibold italic py-6 md:py-10">
+                                        No Classes
+                                    </div>
+                                ) : (
+                                    classes.map((cls, index) => (
+                                        <div 
+                                            key={index} 
+                                            className={`flex flex-col gap-2 p-4 rounded-xl border-2 shadow-sm transition-transform hover:-translate-y-1 ${cls.color}`}
+                                        >
+                                            <div className="flex justify-between items-start gap-2">
+                                                <h3 className="font-extrabold text-lg tracking-wide">{cls.code}</h3>
                                             </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                            
+                                            <p className="text-sm font-semibold leading-snug text-slate-800 line-clamp-2" title={cls.desc}>
+                                                {cls.desc}
+                                            </p>
+                                            
+                                            <div className="mt-2 pt-3 border-t-2 border-slate-300/50 flex flex-col gap-2">
+                                                <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
+                                                    <Clock size={16} className="text-slate-700 shrink-0" />
+                                                    {cls.time}
+                                                </div>
+                                                <div className="flex items-center gap-2 text-sm font-semibold text-slate-800 italic">
+                                                    <User size={16} className="text-slate-700 shrink-0" />
+                                                    <span className="truncate">{cls.faculty}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </section>
 
             {/* STATIC ANNOUNCEMENTS SECTION */}
-            <section className="max-w-[1400px] mx-auto w-full px-5 pb-20">
+            <section className="max-w-[1400px] mx-auto w-full px-4 md:px-5 pb-20">
                 <div className="flex items-center gap-3 mb-8">
-                    <div className="bg-[#B5A996] p-2 rounded-lg text-white">
+                    <div className="bg-[#B5A996] p-2 rounded-lg text-white shadow-sm shrink-0">
                         <BookOpen size={24} />
                     </div>
-                    <h2 className="text-3xl font-serif font-bold text-[#8A6E5D]">Latest Updates</h2>
+                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-[#8A6E5D]">Latest Updates</h2>
                 </div>
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-4 md:gap-6">
                     <Announcement 
                         title="Final Capstone Defense"
                         message="Please ensure all group repositories are updated for initial review this week."

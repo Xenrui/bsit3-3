@@ -4,93 +4,27 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import Navbar from "@/component/navbar";
 import Footer from "@/component/footer";
-import Officerscard from "@/layout/officerscard"; 
-import Studentcard from "@/layout/studentcard";   
+import Studentcard from "@/layout/studentcard"; 
 
-//  STATIC DATA: CLASS OFFICERS
-const officersData = [
-    {
-        id: "off-1",
-        name: "Lance Joseph Dayawon",
-        fullName: "Lance Joseph Dayawon",
-        nickname: "Lance",
-        role: "President",
-        quote: "Leading with passion and coding with purpose.",
-        image: "/assets/students/lance.png", 
-        hobby: "Designing Systems",
-        color: "Sage Green",
-        ig: "",
-        github: "",
-    },
-    {
-        id: "off-2",
-        name: "Lance Joseph",
-        fullName: "Lance Joseph Dayawon",
-        nickname: "Lance",
-        role: "Vice President",
-        quote: "Share a short line that represents you.",
-        image: "/assets/students/lance.png", 
-        hobby: "Gaming",
-        color: "Brown",
-        ig: "",
-        github: "",
-    },
-    {
-        id: "off-3",
-        name: "Name Here",
-        fullName: "Full Name Here",
-        nickname: "Nickname",
-        role: "Secretary",
-        quote: "Quote here...",
-        image: "/assets/students/", 
-        hobby: "Hobby here",
-        color: "Favorite Color",
-        ig: "ig_username",
-        github: "github_username",
-    },
-];
-
-// STATIC DATA: STUDENTS 
-const studentsData = [
-    {
-        id: "stu-1",
-        name: "Student Name 1",
-        fullName: "Student Full Name 1",
-        nickname: "Nickname 1",
-        quote: "",
-        image: "/assets/students/", 
-        hobby: "",
-        color: "",
-        ig: "student_ig",
-        github: "student_github",
-    },
-    {
-        id: "stu-2",
-        name: "Student Name 2",
-        fullName: "Student Full Name 2",
-        nickname: "Nickname 2",
-        quote: "",
-        image: "/assets/students/", 
-        hobby: "",
-        color: "",
-        ig: "",
-        github: "",
-    },
-];
+import { Students } from "@/const"; 
 
 export default function ClassProfiles() {
     const [searchQuery, setSearchQuery] = useState("");
+    const [activeLetter, setActiveLetter] = useState("All");
 
-    // FILTER LOGIC
-    const filteredOfficers = officersData.filter(officer =>
-        officer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        officer.nickname.toLowerCase().includes(searchQuery.toLowerCase())
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+    
+    const allStudents = [...Students.officers, ...Students.class].filter(
+        (student) => student.name && student.name.trim() !== ""
     );
 
-    const filteredStudents = studentsData.filter(student =>
-        student.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        student.nickname.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredStudents = allStudents.filter(student => {
+        const matchesSearch = student.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesLetter = activeLetter === "All" || student.name.charAt(0).toUpperCase() === activeLetter;
+
+        return matchesSearch && matchesLetter;
+    });
 
     return (
         <div className="min-h-screen w-full bg-[#FFF8DE]/44 overflow-x-hidden flex flex-col">
@@ -115,7 +49,7 @@ export default function ClassProfiles() {
                             </div>
                             <input
                                 type="text"
-                                placeholder="Search by name or nickname..."
+                                placeholder="Search by name..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)} 
                                 className="w-full bg-white/40 backdrop-blur-md border border-white/50 text-[#8A6E5D] font-bold placeholder:text-[#8A6E5D]/60 rounded-full py-4 pl-12 pr-6 shadow-md focus:outline-none focus:ring-2 focus:ring-[#7FBF83] transition-all duration-300"
@@ -128,43 +62,50 @@ export default function ClassProfiles() {
 
             <div className="py-10 px-5 flex-grow">
                 
-                {filteredOfficers.length > 0 && (
-                    <section className="max-w-[1400px] mx-auto mb-20">
-                        <div className="flex justify-center mb-10">
-                            <h2 className="text-3xl font-extrabold text-white bg-[#B5A996] font-serif px-12 py-3 rounded-full shadow-sm">
-                                Class Officers
-                            </h2>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                            {filteredOfficers.map((officer) => (
-                                <Officerscard key={officer.id} {...officer} />
-                            ))}
-                        </div>
-                    </section>
-                )}
+                <div className="max-w-[1400px] mx-auto mb-12">
+                    <div className="flex overflow-x-auto pb-4 justify-start md:justify-center gap-2 snap-x scrollbar-hide">
+                        <button 
+                            onClick={() => setActiveLetter("All")}
+                            className={`flex-shrink-0 w-10 h-10 rounded-full font-bold text-sm transition-all duration-300 snap-center ${
+                                activeLetter === "All" 
+                                ? "bg-[#8A6E5D] text-white shadow-md scale-110" 
+                                : "bg-white/60 text-[#8A6E5D] hover:bg-[#8A6E5D]/20"
+                            }`}
+                        >
+                            All
+                        </button>
+                        {alphabet.map((letter) => (
+                            <button
+                                key={letter}
+                                onClick={() => setActiveLetter(letter)}
+                                className={`flex-shrink-0 w-10 h-10 rounded-full font-bold text-sm transition-all duration-300 snap-center ${
+                                    activeLetter === letter 
+                                    ? "bg-[#7FBF83] text-white shadow-md scale-110" 
+                                    : "bg-white/60 text-[#8A6E5D] hover:bg-[#7FBF83]/20"
+                                }`}
+                            >
+                                {letter}
+                            </button>
+                        ))}
+                    </div>
+                </div>
 
-                {filteredStudents.length > 0 && (
+                {/* STUDENT GRID */}
+                {filteredStudents.length > 0 ? (
                     <section className="max-w-[1400px] mx-auto mb-10">
-                        <div className="flex justify-center mb-10">
-                            <h2 className="text-3xl font-extrabold text-white bg-[#B5A996] font-serif px-12 py-3 rounded-full shadow-sm">
-                                Students
-                            </h2>
-                        </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-                            {filteredStudents.map((student) => (
-                                <Studentcard key={student.id} {...student} />
+                            {filteredStudents.map((student, index) => (
+                                <Studentcard key={index} {...student} />
                             ))}
                         </div>
                     </section>
-                )}
-
-                {filteredOfficers.length === 0 && filteredStudents.length === 0 && (
+                ) : (
                     <div className="text-center py-20">
                         <h2 className="text-3xl font-bold text-[#8A6E5D]">
-                            No results found for "{searchQuery}" 
+                            No results found {searchQuery ? `for "${searchQuery}"` : `under the letter "${activeLetter}"`}
                         </h2>
                         <p className="text-[#9E8576] mt-2">
-                            Please try searching with a different name or nickname.
+                            Please try searching with a different name or letter.
                         </p>
                     </div>
                 )}
