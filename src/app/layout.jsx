@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased custom-leaf-cursor mt-20`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased custom-leaf-cursor`}
             >
                 <style dangerouslySetInnerHTML={{ __html: `
                     /* Leaf Cursor Logic */

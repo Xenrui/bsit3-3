@@ -19,7 +19,7 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className="bg-[#FFF8DE] w-full flex justify-between items-center lg:px-20 px-5 py-1.5 shadow-sm z-50 fixed top-0 left-0">
+        <nav className="bg-[#FFF8DE] w-full flex justify-between items-center lg:px-20 px-5 py-1.5 shadow-sm z-50 sticky top-0">
             {/* LOGO */}
             <img
                 src="/assets/studiot3ch_logo.png"
