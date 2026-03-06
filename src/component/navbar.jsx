@@ -68,33 +68,6 @@ const Navbar = () => {
                         );
                     })}
                 </ul>
-        <nav className="bg-[#FFF8DE] w-full flex justify-between items-center lg:px-20 px-5 py-1.5 shadow-sm z-50 sticky top-0">
-            {/* LOGO */}
-            <img
-                src="/assets/studiot3ch_logo.png"
-                alt="studiot3ch_logo"
-                className="min-w-15 lg:w-20 w-12" 
-            />
-
-            {/* NAVBAR LIST LINKS */}
-            <ul className="text-[#7FBF83] text-sm lg:text-base lg:flex items-center gap-2 hidden">
-                {navItems.map((item, index) => {
-                    const isActive = pathname === item.link;
-                    return (
-                        <Link key={index} href={item.link}>
-                            <li
-                                className={`rounded-full py-1 px-4 transition-all duration-300 ease-in-out font-medium whitespace-nowrap
-                                    ${
-                                        isActive
-                                            ? "text-[#FFF8DE] bg-[#B5A996]"
-                                            : "hover:text-[#FFF8DE] hover:bg-[#B5A996]"
-                                    }`}>
-                                {item.title}
-                            </li>
-                        </Link>
-                    );
-                })}
-            </ul>
 
 
                 <div className="lg:hidden flex items-center">
