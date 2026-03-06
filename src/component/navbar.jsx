@@ -9,22 +9,21 @@ import { motion, AnimatePresence } from "framer-motion";
 const Navbar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [showNavbar, setShowNavbar] = useState(false); // start hidden
+  const [showNavbar, setShowNavbar] = useState(false); // hidden initially
 
   useEffect(() => {
     if (pathname === "/") {
       const handleScroll = () => {
-        const scrollY = window.scrollY;
-        // Show navbar if scrolled past Hero section (adjust 400px)
-        if (scrollY > 400) {
+        // Show navbar even with tiny scroll
+        if (window.scrollY > 0) {
           setShowNavbar(true);
         } else {
-          setShowNavbar(false); // hide again if scroll back up
+          setShowNavbar(false); // hide at very top
         }
       };
 
       window.addEventListener("scroll", handleScroll);
-      handleScroll(); // initial check
+      handleScroll(); // check immediately
 
       return () => window.removeEventListener("scroll", handleScroll);
     } else {
